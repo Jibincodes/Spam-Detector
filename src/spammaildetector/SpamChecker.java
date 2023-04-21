@@ -8,11 +8,12 @@ import javax.mail.Header;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
+//Source English Keywords: https://www.activecampaign.com/blog/spam-words
+// Source German Keywords: https://www.mailjet.com/de/blog/email/spam-woerter-emails/
 public class SpamChecker {
     private static final int SPAM_THRESHOLD = 1; // Adjust this value as needed
     private static final List<String> SPAM_KEYWORDS = new ArrayList<String>() {{
-    	 // Add more Spam keywords in English here
+    	 // Add more Spam Keywords in English here
     	add("$$$");
     	add("Bulk email");
     	add("Buy direct");
@@ -146,7 +147,7 @@ public class SpamChecker {
         add("Save big money");
         add("Save up to");
         add("Special promotion");
-        // Add Spam keywords in German here
+        // Add Spam keywords in German here 
         add("€€€");
         add("100% gratis");
         add("100% kostenlos");
@@ -199,7 +200,7 @@ public class SpamChecker {
         add("Job");
         add("Password");
         // Add more ham keywords here
-    }};
+    }
 
     public static boolean isSpam(Message message) throws MessagingException {
         int spamScore = 0;
@@ -234,5 +235,8 @@ public class SpamChecker {
         }
         return count;
     }
+  
     }
+
+
     
