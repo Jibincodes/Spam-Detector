@@ -23,7 +23,7 @@ import javafx.scene.web.WebView;
 public class SpamController {
 	private SpamModel model;
 	private SpamView view;
-	private static final int SPAM_THRESHOLD = 1;
+	private static final int SPAM1 = 1;
 	private static final List<String> spamKeywords = new ArrayList<String>() {{
    	 // Add more Spam Keywords in English here
    	add("$$$");
@@ -327,7 +327,7 @@ public class SpamController {
         //original==========================================================
 
         // Check spam score against threshold
-        return spamScore >= SPAM_THRESHOLD;
+        return spamScore >= SPAM1;
     }
     private boolean containsKeyword(String text, Iterable<String> keywords) {
         for (String keyword : keywords) {
