@@ -12,8 +12,9 @@ public class SpamMain extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		model = new SpamModel();
-		view = new SpamView(primaryStage, model);
+		view = new SpamView(primaryStage, model, controller);
 		controller = new SpamController(model, view);
+		view.setController(controller);
 		view.start();
 
 	}
