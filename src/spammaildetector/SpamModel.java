@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// Two ArrayList instance variables: spamkeywords and hamkeywords(no spam)
 public class SpamModel {
-    protected ArrayList<String> spamKeywords; // change to protected
-    protected ArrayList<String> hamKeywords;
+    protected ArrayList<String> spamKeywords; // this arrayList has not been used
+    protected ArrayList<String> hamKeywords; //this arrayList has not been used
     private ArrayList<String> spamdomains;
     private ArrayList<String> goodMails;
-   // private static final String[] spamdomains = {"netplus.ch", "spamdomain.com", "otherspamdomain.com"};
     //Constructor to initialize both ArrayLists as empty
     public SpamModel() {
         spamKeywords = new ArrayList<>();
@@ -66,6 +64,8 @@ public class SpamModel {
         hamKeywords.add("feedback");
         
     }
+    //====================================================================================
+    // These were more implementations that we wish to set up in the future
     //Method to add keywords to spamKeywords-Mike
     public void addSpamKeyword(String keyword) {
         spamKeywords.add(keyword);
@@ -81,8 +81,8 @@ public class SpamModel {
     //Getter method to return Ham ArrayList -Mike
     public ArrayList<String> getHamKeywords() {
         return hamKeywords;
-    }
-    //
+    }  
+    //=====================================================================================
     public double getSpamScore(String emailAddress) {
     	String str;
     	str = emailAddress;
@@ -120,73 +120,7 @@ public class SpamModel {
     	 }
     	
     	return 0.0;
-    	
-    		
-    		
-    		
-    		/*for (String st: goodMails)
-    		{
-    			if (st.equalsIgnoreCase(domain1)) {
-    				return 1.0;
-    			}
-    		}
-    	        
-    	}
-    	return 1.0;*/
-    	
-    	/*String str;
-    	str = emailAddress;
-    	String []arr = emailAddress.split("<");
-    	arr[1] = arr[1].trim();
-    	//arr[1] = arr[1].replace(">","");
-    	arr[1] = arr[1].substring(0, arr[1].length()-1);
-    	int indexof = arr[1].indexOf('@');
-    	String from = arr[1].substring(0, indexof);
-    	String domain1 = arr[1].substring(indexof+1);
-    	if (from.equalsIgnoreCase(domain1))
-    	{
-    		return 0.0;
-    	}
-    	
-    	if (goodDomainList.contains(domainString))
-    	{
-    		return 0.0;
-    		
-    	
-    	}
-    	else if ()
-    	
-    	elseif(domain1.equalsIgnoreCase(gooodMails)){
-    		return 0.0;
-    	}
-    	else {
-    		spamdomains.add(domain1);
-    		return 1.0;
-    	}
- 
-    	
-        for (String domain : spamdomains) {
-            if (emailAddress.endsWith("@" + domain)) {
-                return 1.0; // high spam score
-            }
-        }
-        return 0.0; // low spam score
-    }*/
     }
-	/*private void writeSpamDomainsToFile() {
-		try {
-	        FileWriter writer = new FileWriter("spam_domains.txt");
-	        BufferedWriter bufferedWriter = new BufferedWriter(writer);
-	        for (String domain : spamdomains) {
-	            bufferedWriter.write(domain);
-	            bufferedWriter.newLine();
-	        }
-	        bufferedWriter.close();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-		
-	}*/
 }
 
 
