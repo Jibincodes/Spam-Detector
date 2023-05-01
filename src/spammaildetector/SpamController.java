@@ -214,64 +214,24 @@ public class SpamController {
        // Add more ham keywords here
    }};
 
-	/*private Label fromLabel;
-    private Label toLabel;
-    private Label subjectLabel;
-    private Label contentLabel;*/
-
 	public SpamController(SpamModel model, SpamView view) {
 		this.model = model;
 		this.view = view;
 		
 	}
+	//=========================================================================================================
 	//Methods to update model class ArrayLists
-	public void addSpamKeyword(String keyword) {//Takes String parameter representing new Spam Keyword to add
-        model.addSpamKeyword(keyword);//call method on model object, passing keyword as argument, this updates ArrayList with new Keyword
+	public void addSpamKeyword(String keyword) {
+        model.addSpamKeyword(keyword);
     }
 	//Methods to update model class ArrayLists
-    public void addHamKeyword(String keyword) {//Takes String parameter representing new Spam Keyword to add
-        model.addHamKeyword(keyword);//call method on model object, passing keyword as argument, this updates ArrayList with new Keyword
+    public void addHamKeyword(String keyword) {
+        model.addHamKeyword(keyword);
     }
-    //===================================================================================
-    /*public void processEmailFile(File file) {
-        if (file != null) {
-            try {
-                MimeMessage message = new MimeMessage(Session.getDefaultInstance(new Properties()), Files.newInputStream(file.toPath())); 
-                Address[] fromAddresses = message.getFrom();
-                view.fromLabel.setText(fromAddresses != null && fromAddresses.length > 0 ? fromAddresses[0].toString() : "");
-                Address[] toAddresses = message.getRecipients(Message.RecipientType.TO);
-                view.toLabel.setText(toAddresses != null && toAddresses.length > 0 ? toAddresses[0].toString() : "");
-                view.subjectLabel.setText(message.getSubject());
-                String content = view.getContent(message);
-                view.contentLabel.setText(content);
-
-                // Get spam score for "From" email address
-                String fromAddress = fromAddresses != null && fromAddresses.length > 0 ? fromAddresses[0].toString() : "";
-                double spamScore = model.getSpamScore(fromAddress);
-                view.spamScoreLabel.setText(String.format("%.2f", spamScore));
-
-            } catch (MessagingException | IOException e) {
-                view.contentLabel.setText("Error parsing email: " + e.getMessage());
-            }
-        }
-    }*/
-    //===========================================================================================
-    // new changes to check the word
+    //============================================================================================================
+    // new changes to check the word in the content
     public boolean isSpam(Message message) throws MessagingException, IOException {
         Double spamScore = 0.0;
-
-        // Check headers for spam keywords
-        /*for (Header header : message.getAllHeaders()) { // here iterable through only array thats why spamkeywords and hamkeywords were made so 
-            if (containsKeyword(header.getValue(), spamKeywords)) {//Can only iterate over an array or an instance of java.lang.Iterable.
-                spamScore = 1;
-                break;
-            }
-            if (containsKeyword(header.getValue(), hamKeywords)) {
-                spamScore = 0;
-                break;
-            }
-        }*/
-
         // Check body for spam keywords
         if (message instanceof MimeMessage) {
             MimeMessage mimeMessage = (MimeMessage) message;
@@ -283,14 +243,11 @@ public class SpamController {
                     for (int i = 0; i < multipart.getCount(); i++) {
                         BodyPart bodyPart = multipart.getBodyPart(i);
                         String bodyContentType = bodyPart.getContentType();
-                        //if (bodyContentType.toLowerCase().contains("text/plain") || 
-                         //   bodyContentType.toLowerCase().contains("text/html")) {
                         if (bodyContentType.toLowerCase().contains("text/plain")) {
                             String bodyContent = (String) bodyPart.getContent();
                             String str = bodyContent;
-                            System.out.print(str);
-                            // Extract the desired content from bodyContent
-                            String desiredContent = extractContent(bodyContent);
+                            // just for testing purpose
+                            //System.out.print(str);
                             if (containsKeyword(str, spamKeywords)) {
                                 spamScore =  1.0;
                                 view.spamScoreofContent.setText(String.format("%.2f", spamScore));
@@ -303,30 +260,8 @@ public class SpamController {
                 }
             }
         }
-
-
-        //====================================================================
-        //original
-        /*if (message instanceof MimeMessage) {
-            MimeMessage mimeMessage = (MimeMessage) message;
-            String contentType = mimeMessage.getContentType();
-            if(contentType.toLowerCase().contains("multipart/alternative"))
-            {
-            if (contentType.toLowerCase().contains("text/plain") || contentType.toLowerCase().contains("text/html")) {
-                String content = view.getContent(mimeMessage);
-                if (containsKeyword(content, spamKeywords)) {
-                    spamScore = 1;
-                    view.spamScoreLabel.setText(String.format("%.2f", spamScore));
-                } else if (containsKeyword(content, hamKeywords)) {
-                    spamScore = 0;
-                    view.spamScoreLabel.setText(String.format("%.2f", spamScore));
-                }
-            }
-            }
-        }*/
-        //original==========================================================
-
-        // Check spam score against threshold
+        // This method is really restricted  and if its not in both List, we set for now score =1
+        // We would like to develop this program more in the future
         return spamScore >= SPAM1;
     }
     private boolean containsKeyword(String text, Iterable<String> keywords) {
@@ -342,32 +277,12 @@ public class SpamController {
             try {
                 MimeMessage message = new MimeMessage(Session.getDefaultInstance(new Properties()), Files.newInputStream(file.toPath()));
                 boolean isSpam = isSpam(message);
-                // do something with the isSpam result
             } catch (MessagingException | IOException e) {
                 view.contentLabel.setText("Error parsing email: " + e.getMessage());
             }
         }
     }
-
-   public String extractContent(String bodyContent) {
-    // Use a WebView to convert the plain text to HTML
-    WebView webView = new WebView();
-    HTMLEditor htmlEditor = new HTMLEditor();
-    //webView.getEngine().loadContent(htmlEditor.convertToHtml(bodyContent));
-    String htmlContent = "<html><body>" + bodyContent + "</body></html>";
-    webView.getEngine().loadContent(htmlContent);
-    htmlContent = (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
-    
-    // Strip HTML tags from the HTML content to get the plain text content
-    String plainTextContent = htmlContent.replaceAll("\\<.*?\\>", "");
-    return plainTextContent;
 }
     
-//=========================================
-  
-
-}
-    
-//====================================================================================================================
 
 
