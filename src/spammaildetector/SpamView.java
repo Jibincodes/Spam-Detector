@@ -50,7 +50,7 @@ public class SpamView {
 		// adding controller as well
 		this.controller = controller;
 
-		// new addings
+		// new addings , which is the button
 		openbutton = new Button("open file");
 		Label titleLabel = new Label("Email Parser");
 		Label fromTitleLabel = new Label("From:");
