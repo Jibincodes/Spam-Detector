@@ -33,8 +33,6 @@ public class SpamView {
 	private SpamModel model;
 	// adding the controller as well for a checker
 	private SpamController controller;
-
-	// new addings
 	private static final String TEXT_PLAIN = "text/plain";
 	private static final String TEXT_HTML = "text/html";
 
@@ -45,8 +43,6 @@ public class SpamView {
 	protected Label spamScoreLabel = new Label();
 	protected Button openbutton;
 	protected Label spamScoreofContent = new Label();
-
-	// till here
 
 	public SpamView(Stage primaryStage, SpamModel model, SpamController controller) {
 		this.stage = primaryStage;
@@ -67,27 +63,12 @@ public class SpamView {
 				subjectLabel, contentTitleLabel, contentLabel, spamScoreTitleLabel, spamScoreLabel,spamScoreofContentTitle, spamScoreofContent);
 		vbox.getChildren().add(openbutton);
 		Scene scene = new Scene(vbox, 800, 600);
-		// till here
-
-		/*
-		 * Menu fileMenu = new Menu("File"); MenuItem item = new
-		 * MenuItem("Open multiple File");
-		 */
 		openbutton.setOnAction(e -> {
-			// fileMenu.getItems().addAll(item);
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open email file");
 			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Email files (*.eml)", "*.eml"));
-			// item.setOnAction(new EventHandler<ActionEvent>() {
-			// public void handle(ActionEvent event) {
-			// Opening a dialog box and reading the file
 			File file = fileChooser.showOpenDialog(stage);
 
-			// for checking we pass it to the checking method
-			//controller.processEmailFile(file);
-
-			// }});
-			// new addings
 			if (file != null) {
 				try {
 					MimeMessage message = new MimeMessage(Session.getDefaultInstance(new Properties()),
@@ -101,28 +82,18 @@ public class SpamView {
 					String content = getContent(message);
 					contentLabel.setText(content);
 					if (file.exists()) System.out.println("File exists!");
-					//this.controller.processEmailFile(file);
 					String fromAddress = fromAddresses != null && fromAddresses.length > 0 ? fromAddresses[0].toString()
 							: "";
+					//============================================
 					double spamScore = model.getSpamScore(fromAddress);
 					spamScoreLabel.setText(String.format("%.2f", spamScore));
 					this.controller.processEmailFile(file);
-					//this.controller.processEmailFile(file);
-
+					//============================================
 				} catch (MessagingException | IOException f) {
 					contentLabel.setText("Error parsing email: " + f.getMessage());
 				}
 			}
 		});
-		// till here
-		/*
-		 * MenuBar menuBar = new MenuBar(fileMenu); menuBar.setTranslateX(3);
-		 * menuBar.setTranslateY(3);
-		 */
-		/*
-		 * Group root = new Group(menuBar); Scene scene = new Scene(root, 595, 355,
-		 * Color.BLACK);
-		 */
 		stage.setTitle("File Chooser");
 		stage.setScene(scene);
 
