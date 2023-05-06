@@ -51,6 +51,7 @@ public class SpamView {
 		this.controller = controller;
 
 		// new addings , which is the button
+		// Jibin has set up the file chooser
 		openbutton = new Button("open file");
 		Label titleLabel = new Label("Email Parser");
 		Label fromTitleLabel = new Label("From:");
@@ -68,7 +69,7 @@ public class SpamView {
 			fileChooser.setTitle("Open email file");
 			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Email files (*.eml)", "*.eml"));
 			File file = fileChooser.showOpenDialog(stage);
-
+            // Jibin
 			if (file != null) {
 				try {
 					MimeMessage message = new MimeMessage(Session.getDefaultInstance(new Properties()),
@@ -81,7 +82,7 @@ public class SpamView {
 					subjectLabel.setText(message.getSubject());
 					String content = getContent(message);
 					contentLabel.setText(content);
-					if (file.exists()) System.out.println("File exists!");
+					if (file.exists()) System.out.println("File exists!"); //just a testing statement which can be commented out
 					String fromAddress = fromAddresses != null && fromAddresses.length > 0 ? fromAddresses[0].toString()
 							: "";
 					//============================================
@@ -98,7 +99,7 @@ public class SpamView {
 		stage.setScene(scene);
 
 	}
-
+    // Jibin & Sascha
 	public String getContent(MimeMessage message) throws MessagingException, IOException {
 		Object content = message.getContent();
 		if (content instanceof String) {
