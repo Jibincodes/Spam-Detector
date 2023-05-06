@@ -266,7 +266,7 @@ public class SpamController {
         // We would like to develop this program more in the future
         return spamScore >= SPAM1;
     }
-    // Jibin
+    // method by Jibin
     private boolean containsKeyword(String text, Iterable<String> keywords) {
         for (String keyword : keywords) {
             if (text.contains(keyword)) {
