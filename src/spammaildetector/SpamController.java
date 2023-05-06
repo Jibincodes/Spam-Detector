@@ -24,6 +24,7 @@ public class SpamController {
 	private SpamModel model;
 	private SpamView view;
 	private static final int SPAM1 = 1;
+	// Mike
 	private static final List<String> spamKeywords = new ArrayList<String>() {{
    	 // Add more Spam Keywords in English here
    	add("$$$");
@@ -191,7 +192,7 @@ public class SpamController {
        add("Von Zuhause arbeiten");
 
    }};
-   
+   // Mike
    private static final List<String> hamKeywords = new ArrayList<String>() {{
        add("meeting");
        add("agenda");
@@ -220,16 +221,17 @@ public class SpamController {
 		
 	}
 	//=========================================================================================================
-	//Methods to update model class ArrayLists
+	//Methods to update model class ArrayLists - not implemented
 	public void addSpamKeyword(String keyword) {
         model.addSpamKeyword(keyword);
     }
-	//Methods to update model class ArrayLists
+	//Methods to update model class ArrayLists - not implemented
     public void addHamKeyword(String keyword) {
         model.addHamKeyword(keyword);
     }
     //============================================================================================================
     // new changes to check the word in the content
+    // Mike & Sascha
     public boolean isSpam(Message message) throws MessagingException, IOException {
         Double spamScore = 0.0;
         // Check body for spam keywords
@@ -264,6 +266,7 @@ public class SpamController {
         // We would like to develop this program more in the future
         return spamScore >= SPAM1;
     }
+    // Jibin
     private boolean containsKeyword(String text, Iterable<String> keywords) {
         for (String keyword : keywords) {
             if (text.contains(keyword)) {
@@ -272,6 +275,7 @@ public class SpamController {
         }
         return false;
     }
+    // Jibin
     public void processEmailFile(File file) {
         if (file != null) {
             try {
