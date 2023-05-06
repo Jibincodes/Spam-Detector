@@ -275,7 +275,7 @@ public class SpamController {
         }
         return false;
     }
-    // Jibin
+    //  processEmailFile by Jibin
     public void processEmailFile(File file) {
         if (file != null) {
             try {
