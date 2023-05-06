@@ -14,15 +14,15 @@ public class SpamModel {
     private ArrayList<String> goodMails;
     //Constructor to initialize both ArrayLists as empty
     public SpamModel() {
-        spamKeywords = new ArrayList<>();
-        hamKeywords = new ArrayList<>();
+        spamKeywords = new ArrayList<>(); //not implemented 
+        hamKeywords = new ArrayList<>(); // not implemented
         spamdomains =new ArrayList<>();
         goodMails = new ArrayList<>();
         initializeKeywords();
     }
     //Method to initialize ArrayLists - Mike
     private void initializeKeywords() {
-    	//add spam Keywords here
+    	//add spam Keywords here - not used
     	spamKeywords.add("make money fast");
         spamKeywords.add("get rich quick");
         spamKeywords.add("money-back guarantee");
@@ -34,6 +34,7 @@ public class SpamModel {
         spamKeywords.add("viagra");
         spamKeywords.add("increase your income");
         //================================================
+        // - Sascha
         spamdomains.add("netplus");
         spamdomains.add("spam123");
         spamdomains.add("spamdomain");
@@ -51,7 +52,7 @@ public class SpamModel {
     	goodMails.add("icloud");
     	goodMails.add("fhnw");
         //=============================================
-        //add ham keywords here
+        //add ham keywords here - not used
         hamKeywords.add("meeting");
         hamKeywords.add("agenda");
         hamKeywords.add("schedule");
@@ -65,7 +66,7 @@ public class SpamModel {
         
     }
     //====================================================================================
-    // These were more implementations that we wish to set up in the future
+    // These are implementations that we wish to set up in the future for the headers
     //Method to add keywords to spamKeywords-Mike
     public void addSpamKeyword(String keyword) {
         spamKeywords.add(keyword);
@@ -83,6 +84,7 @@ public class SpamModel {
         return hamKeywords;
     }  
     //=====================================================================================
+    // getSpamScore by Jibin
     public double getSpamScore(String emailAddress) {
     	String str;
     	str = emailAddress;
