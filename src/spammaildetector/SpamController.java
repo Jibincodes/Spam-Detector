@@ -248,7 +248,7 @@ public class SpamController {
                         if (bodyContentType.toLowerCase().contains("text/plain")) {
                             String bodyContent = (String) bodyPart.getContent();
                             String str = bodyContent;
-                            // just for testing purpose
+                            // just for testing purpose by Jibin
                             //System.out.print(str);
                             if (containsKeyword(str, spamKeywords)) {
                                 spamScore =  1.0;
